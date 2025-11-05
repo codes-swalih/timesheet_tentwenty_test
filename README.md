@@ -34,3 +34,51 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+timesheet-app/
+├── app/
+│ ├── layout.tsx # Main layout (global styles, header if needed)
+│ ├── globals.css # Tailwind base styles
+│ ├── login/
+│ │ ├── page.tsx # Login page
+│ ├── dashboard/
+│ │ ├── page.tsx # Dashboard page
+│ │ ├── components/
+│ │ │ ├── TimesheetTable.tsx
+│ │ │ ├── TimesheetModal.tsx
+│ │ │ ├── TimesheetForm.tsx
+│ │ └── hooks/
+│ │ └── useTimesheets.ts # Data fetching hook
+│ ├── api/
+│ │ ├── auth/
+│ │ │ └── route.ts # Dummy login route
+│ │ ├── timesheets/
+│ │ │ ├── route.ts # GET/POST timesheets
+│ │ │ └── [id]/route.ts # PUT/DELETE single timesheet
+│
+├── components/
+│ ├── ui/ # ShadCN or reusable components
+│ ├── common/
+│ │ ├── Button.tsx
+│ │ ├── Input.tsx
+│ │ ├── Modal.tsx
+│
+├── lib/
+│ ├── auth.ts # NextAuth config
+│ ├── utils.ts # Generic helpers (formatDate, etc.)
+│ ├── constants.ts
+│
+├── types/
+│ ├── timesheet.ts # TypeScript interfaces
+│
+├── tests/
+│ ├── TimesheetTable.test.tsx
+│
+├── public/
+│ ├── favicon.ico
+│
+├── README.md
+├── tailwind.config.js
+├── next.config.js
+├── package.json
+└── tsconfig.json
