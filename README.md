@@ -75,5 +75,6 @@ export const config = {
   matcher: ["/((?!api/auth|_next|favicon.ico|login).*)"],
 };
 ```
-Email: john@example.com
+
+Email: test@tentwenty.com
 Password: 123456
