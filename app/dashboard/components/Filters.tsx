@@ -1,63 +1,68 @@
+// components/Filters.tsx
+"use client";
 import React from "react";
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Button, Dropdown, message, Space } from "antd";
+import { DatePicker, Select, Button } from "antd";
+import dayjs, { Dayjs } from "dayjs";
 
-const handleMenuClick: MenuProps["onClick"] = (e) => {
-  message.info("Click on menu item.");
-  console.log("click", e);
+const { RangePicker } = DatePicker;
+
+export type FilterState = {
+  dateRange?: [Dayjs, Dayjs] | null;
+  status?: "ALL" | "COMPLETED" | "INCOMPLETE" | "MISSING" | "PENDING";
 };
-function Filters() {
-  const items: MenuProps["items"] = [
-    {
-      label: "1st menu item",
-      key: "1",
-      icon: <UserOutlined />,
-    },
-    {
-      label: "2nd menu item",
-      key: "2",
-      icon: <UserOutlined />,
-    },
-    {
-      label: "3rd menu item",
-      key: "3",
-      icon: <UserOutlined />,
-      danger: true,
-    },
-    {
-      label: "4rd menu item",
-      key: "4",
-      icon: <UserOutlined />,
-      danger: true,
-      disabled: true,
-    },
-  ];
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
+
+type Props = {
+  onChange?: (filters: FilterState) => void;
+};
+
+export default function Filters({ onChange }: Props) {
+  const handleRangeChange = (dates: null | (Dayjs | null)[]) => {
+    const payload: FilterState = {
+      dateRange:
+        dates && dates[0] && dates[1]
+          ? ([dates[0] as Dayjs, dates[1] as Dayjs] as [Dayjs, Dayjs])
+          : null,
+    };
+    onChange?.(payload);
+  };
+
+  const handleStatusChange = (value: string) => {
+    const payload: FilterState = {
+      status: (value as FilterState["status"]) ?? "ALL",
+    };
+    onChange?.(payload);
+  };
+
+  const handleClearAll = () => {
+    onChange?.({ dateRange: null, status: "ALL" });
   };
 
   return (
-    <div className=" flex items-center gap-2">
-      <Dropdown menu={menuProps}>
-        <Button size="large">
-          <Space>
-            Date Range
-            <DownOutlined />
-          </Space>
-        </Button>
-      </Dropdown>
-      <Dropdown menu={menuProps}>
-        <Button size="large">
-          <Space>
-            Status
-            <DownOutlined />
-          </Space>
-        </Button>
-      </Dropdown>
+    <div className="flex items-center gap-3">
+      <RangePicker
+      size="large"
+        onChange={handleRangeChange}
+        allowClear
+        format="DD MMM YYYY"
+      />
+
+      <Select
+        size="large"
+        defaultValue="ALL"
+        style={{ width: 160 }}
+        onChange={handleStatusChange}
+        options={[
+          { label: "All", value: "ALL" },
+          { label: "Completed", value: "COMPLETED" },
+          { label: "Incomplete", value: "INCOMPLETE" },
+          { label: "Missing", value: "MISSING" },
+          { label: "Pending", value: "PENDING" },
+        ]}
+      />
+
+      <Button size="large" type="default" onClick={handleClearAll}>
+        Clear
+      </Button>
     </div>
   );
 }
-
-export default Filters;

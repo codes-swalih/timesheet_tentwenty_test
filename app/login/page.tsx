@@ -1,12 +1,13 @@
-"use client";
-import React from "react";
+import { Suspense } from "react";
 import LeftScreen from "./components/LeftScreen";
 import RightScreen from "./components/RightScreen";
 
 function page() {
   return (
     <div className=" w-full h-screen flex justify-between">
-      <LeftScreen />
+      <Suspense fallback={<div>Loading...</div>}>
+        <LeftScreen />
+      </Suspense>
       <RightScreen />
     </div>
   );

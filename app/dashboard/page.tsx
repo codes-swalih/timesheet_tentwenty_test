@@ -1,5 +1,3 @@
-
-import React from "react";
 import TimeSheetTable from "./components/TimeSheetTable";
 
 function page() {

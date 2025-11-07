@@ -3,19 +3,30 @@ import React from "react";
 import { DownOutlined, LogoutOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Dropdown, Space } from "antd";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 function Header() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { data: session } = useSession();
+
   if (!pathname) return null;
+
+  const handleMenuClick: MenuProps["onClick"] = async ({ key }) => {
+    if (key === "1") {
+      await signOut({
+        redirect: false,
+        callbackUrl: "/login",
+      });
+      router.push("/login");
+    }
+  };
 
   const items: MenuProps["items"] = [
     {
       key: "1",
-      label: "Profile",
-    },
-    {
-      key: "2",
       label: "Logout",
       icon: <LogoutOutlined />,
     },
@@ -28,13 +39,15 @@ function Header() {
   return (
     <div className=" w-full bg-white flex justify-between items-center p-8 ">
       <div className=" flex items-center gap-10">
-        <h1 className=" text-2xl font-semibold cursor-pointer">ticktock</h1>
+        <Link href={"/dashboard"}>
+          <h1 className=" text-2xl font-semibold cursor-pointer">ticktock</h1>
+        </Link>
         <h1 className=" cursor-pointer">Timesheet</h1>
       </div>
-      <Dropdown menu={{ items }}>
+      <Dropdown menu={{ items, onClick: handleMenuClick }}>
         <a onClick={(e) => e.preventDefault()}>
           <Space>
-            John Doe
+            {session?.user?.name || "John Doe"}
             <DownOutlined />
           </Space>
         </a>
