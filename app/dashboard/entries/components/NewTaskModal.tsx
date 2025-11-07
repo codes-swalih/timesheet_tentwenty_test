@@ -143,7 +143,6 @@ export default function NewTaskModal({
               onChange={(val) =>
                 setTask((t) => ({ ...t, hours: Number(val) || 1 }))
               }
-              style={{ width: "100%" }}
             />
           </div>
 

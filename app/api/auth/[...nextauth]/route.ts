@@ -10,7 +10,6 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      // explicitly type credentials as possibly undefined
       async authorize(
         credentials: Record<string, unknown> | undefined
       ): Promise<any | null> {
@@ -23,14 +22,10 @@ export const authOptions: NextAuthOptions = {
 
         if (!email || !password) return null;
 
-        // Validate against mock users (adjust shape of users if needed)
         const user = users.find(
           (u) => u.email === email && u.password === password
         );
-
         if (!user) return null;
-
-        // return plain object that will be included in the JWT / session
         return { id: String(user.id), name: user.name, email: user.email };
       },
     }),
@@ -39,16 +34,13 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    // keep types loose for token/user because NextAuth JWT shape is flexible
     async jwt({ token, user }) {
       if (user) {
-        // attach returned user to token so session callback can use it
         (token as any).user = user;
       }
       return token;
     },
     async session({ session, token }) {
-      // copy over user saved in token to session.user
       if ((token as any).user) {
         session.user = (token as any).user;
       }

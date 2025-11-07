@@ -42,11 +42,11 @@ export async function DELETE(
     return NextResponse.json({ message: "Not found" }, { status: 404 });
 
   const [deleted] = timesheets.splice(idx, 1);
-  // Optionally also remove entries related to this timesheet:
+  
   for (let i = entries.length - 1; i >= 0; i--) {
     if (entries[i].timesheetId === id) entries.splice(i, 1);
   }
 
-  const { totalHours, status } = computeStatsForTimesheet(id); // will be 0 / MISSING
+  const { totalHours, status } = computeStatsForTimesheet(id);
   return NextResponse.json({ ...deleted, totalHours, status });
 }

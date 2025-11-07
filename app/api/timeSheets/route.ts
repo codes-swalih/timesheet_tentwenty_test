@@ -30,7 +30,6 @@ export async function POST(req: Request) {
   };
   timesheets.unshift(newSheet);
 
-  // include derived fields in response
   const { totalHours, status } = computeStatsForTimesheet(newSheet.id);
   return NextResponse.json(
     { ...newSheet, totalHours, status },

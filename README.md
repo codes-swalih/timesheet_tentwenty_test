@@ -1,84 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🕒 Timesheet App (Next.js + NextAuth)
 
-## Getting Started
+A simple **Timesheet Management Dashboard** built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS**,**AntDesign** and **NextAuth.js** for authentication.
 
-First, run the development server:
+This project demonstrates a secure login flow using mock user data (no real database), server-side route protection with middleware, and a clean, modern dashboard for managing timesheets.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+✅ **Next.js 16 App Router** — modern file-based routing with `app/` directory  
+✅ **NextAuth.js (Credentials Provider)** — dummy login using mock data  
+✅ **Middleware Authentication Guard** — locks all pages if user not logged in  
+✅ **Protected Dashboard** — accessible only to authenticated users  
+✅ **Ant Design Table** — elegant timesheet display component  
+✅ **Tailwind CSS** — responsive UI design  
+✅ **TypeScript** — fully typed and scalable codebase
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧱 Project Structure
 
 timesheet-app/
 ├── app/
-│ ├── layout.tsx # Main layout (global styles, header if needed)
-│ ├── globals.css # Tailwind base styles
+│ ├── layout.tsx # Root layout (global styles, metadata)
+│ ├── globals.css # Tailwind global styles
 │ ├── login/
-│ │ ├── page.tsx # Login page
+│ │ ├── page.tsx # Login page with NextAuth credentials sign-in
 │ ├── dashboard/
-│ │ ├── page.tsx # Dashboard page
+│ │ ├── page.tsx # Protected dashboard page
 │ │ ├── components/
-│ │ │ ├── TimesheetTable.tsx
-│ │ │ ├── TimesheetModal.tsx
-│ │ │ ├── TimesheetForm.tsx
+│ │ │ ├── TimeSheetTable.tsx
+│ │ │ ├── TimeSheetModal.tsx
+│ │ │ ├── TimeSheetForm.tsx
 │ │ └── hooks/
-│ │ └── useTimesheets.ts # Data fetching hook
+│ │ └── useTimesheets.ts # Custom hook for timesheet data fetching
 │ ├── api/
 │ │ ├── auth/
-│ │ │ └── route.ts # Dummy login route
+│ │ │ └── [...nextauth]/route.ts # NextAuth configuration
 │ │ ├── timesheets/
-│ │ │ ├── route.ts # GET/POST timesheets
-│ │ │ └── [id]/route.ts # PUT/DELETE single timesheet
-│
-├── components/
-│ ├── ui/ # ShadCN or reusable components
-│ ├── common/
-│ │ ├── Button.tsx
-│ │ ├── Input.tsx
-│ │ ├── Modal.tsx
+│ │ │ ├── route.ts # GET/POST timesheets API
+│ │ │ └── [id]/route.ts # PUT/DELETE timesheet by ID
 │
 ├── lib/
-│ ├── auth.ts # NextAuth config
-│ ├── utils.ts # Generic helpers (formatDate, etc.)
-│ ├── constants.ts
+│ └── mockData.ts # Contains mock users and dummy timesheet data
 │
-├── types/
-│ ├── timesheet.ts # TypeScript interfaces
-│
-├── tests/
-│ ├── TimesheetTable.test.tsx
-│
-├── public/
-│ ├── favicon.ico
-│
-├── README.md
-├── tailwind.config.js
-├── next.config.js
+├── middleware.ts # Authentication guard for protected routes
+├── .env.local # Environment variables (secret keys, etc.)
 ├── package.json
+├── README.md
 └── tsconfig.json
+
+---
+
+## 🔑 Authentication Flow
+
+Authentication is handled with **NextAuth.js** using the **Credentials Provider** and mock user data from `lib/mockData.ts`.
+
+1. User logs in via `/login`.
+2. Credentials are validated in `authorize()` inside `app/api/auth/[...nextauth]/route.ts`.
+3. On success, a JWT session is created (no database required).
+4. Middleware (`middleware.ts`) checks for a valid token on every request.
+5. If no token → redirect to `/login?callbackUrl=/requested-page`.
+6. If valid → user is granted access to the protected route (e.g. `/dashboard`).
+
+---
+
+## 🔐 Middleware Protection
+
+`middleware.ts` intercepts all requests and verifies authentication:
+
+```ts
+// Redirects unauthenticated users to /login
+export const config = {
+  matcher: ["/((?!api/auth|_next|favicon.ico|login).*)"],
+};
+```
+Email: john@example.com
+Password: 123456

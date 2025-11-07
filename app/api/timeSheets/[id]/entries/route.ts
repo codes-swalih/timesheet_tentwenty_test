@@ -26,21 +26,18 @@ export async function POST(
     );
   }
 
-  // Helper function to ensure each task has an id
   const addTaskIds = (taskOrTasks: any) => {
     const taskArray = Array.isArray(taskOrTasks) ? taskOrTasks : [taskOrTasks];
     return taskArray.map((task) => ({
       ...task,
-      id: uuid(), // Add UUID to each task
+      id: uuid(), 
     }));
   };
 
-  // Find existing entry for that timesheet and date
   const existingEntry = entries.find(
     (en) => en.timesheetId === id && en.date === date
   );
 
-  // If found, append tasks with new IDs
   if (existingEntry) {
     const newTasks = addTaskIds(tasks);
     existingEntry.tasks = [...(existingEntry.tasks || []), ...newTasks];
@@ -56,7 +53,6 @@ export async function POST(
     );
   }
 
-  // Otherwise, create a new entry with tasks that have IDs
   const newEntry = {
     id: uuid(),
     timesheetId: id,

@@ -60,11 +60,10 @@ export async function PUT(
     return NextResponse.json({ message: "Task not found" }, { status: 404 });
   }
 
-  // Update the task with new data, preserving the id
   findEntry.tasks[findTaskIndex] = {
     ...findEntry.tasks[findTaskIndex],
     ...body,
-    id: taskId, // Ensure id doesn't get overwritten
+    id: taskId, 
   };
 
   return NextResponse.json({

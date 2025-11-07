@@ -71,7 +71,6 @@ export async function DELETE(
     return NextResponse.json({ message: "Task not found" }, { status: 404 });
   }
 
-  // Fixed: removed the extra ?? before , 1
   const deletedTask = findEntry.tasks.splice(findTaskIndexToDelete, 1);
 
   return NextResponse.json({
