@@ -4,7 +4,7 @@ import RightScreen from "./components/RightScreen";
 
 function page() {
   return (
-    <div className=" w-full h-screen flex justify-between">
+    <div className=" w-full h-screen md:flex justify-between">
       <Suspense fallback={<div>Loading...</div>}>
         <LeftScreen />
       </Suspense>

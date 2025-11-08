@@ -2,7 +2,7 @@ import React from "react";
 
 function RightScreen() {
   return (
-    <div className=" w-1/2 h-full flex items-center justify-center bg-[#1C64F2] text-white">
+    <div className="hidden w-1/2 h-full md:flex items-center justify-center bg-[#1C64F2] text-white">
       <div className=" w-2/3 flex flex-col gap-5">
         <h1 className=" text-4xl font-semibold">ticktock</h1>
         <h1>

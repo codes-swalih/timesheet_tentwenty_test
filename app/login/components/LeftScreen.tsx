@@ -31,8 +31,8 @@ function LeftScreen() {
     router.push(destination);
   }
   return (
-    <div className=" w-1/2 h-full flex items-center justify-center">
-      <div className=" flex flex-col gap-10 w-2/3">
+    <div className=" md:w-1/2 w-full h-full flex items-center justify-center">
+      <div className=" flex flex-col gap-10 md:w-2/3 w-4/5">
         <div className=" flex flex-col gap-5">
           <h1 className=" text-2xl font-bold">Welcome back</h1>
           <div className=" flex flex-col gap-2">

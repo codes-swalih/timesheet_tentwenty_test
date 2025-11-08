@@ -28,18 +28,18 @@ function TaskCards(params: TaskCardsProps) {
             key={index}
             className=" md:flex items-start justify-between w-full"
           >
-            <div className=" md:w-1/6">
+            <div className=" md:w-1/6 mb-2 md:mb-0  ">
               <h1 className=" md:text-lg">{items.formattedDate}</h1>
             </div>
-            <div className=" flex flex-col gap-3 w-5/6">
+            <div className=" flex flex-col gap-3 md:w-5/6">
               <div className=" flex flex-col gap-3 w-full">
                 {items.tasks?.map((tsk: Task, index: number) => {
                   return (
                     <div
                       key={index}
-                      className=" px-2 w-full rounded-xl flex justify-between items-center border h-12 border-gray-200"
+                      className=" px-2 w-full rounded-xl flex justify-between items-center border py-3 md:py-0 md:h-12 border-gray-200"
                     >
-                      <h1>{tsk.projectName}</h1>
+                      <h1 className=" text-sm md:text-base w-2/4 md:w-auto">{tsk.projectName}</h1>
                       <div className=" flex items-center gap-3">
                         <h1 className=" text-sm text-gray-400">
                           {tsk.hours} hrs
