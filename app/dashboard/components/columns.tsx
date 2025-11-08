@@ -63,7 +63,7 @@ export const getColumns = ({
     onCell: () => ({
       style: {
         textAlign: "center",
-        color: "blue",
+        color: "#1C64F2",
         fontSize: "15px",
       },
     }),
