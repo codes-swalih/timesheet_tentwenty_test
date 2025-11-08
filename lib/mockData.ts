@@ -52,6 +52,7 @@ export const timesheets: Timesheet[] = [
 
 // Mock entries
 export const entries: TimesheetEntry[] = [
+  // Week 1 - COMPLETED (40 hrs)
   {
     id: uuid(),
     timesheetId: "t1",
@@ -130,7 +131,30 @@ export const entries: TimesheetEntry[] = [
     ],
   },
 
-  // t3 (incomplete week - fewer than 40 hours total)
+  // Week 2 - COMPLETED
+  {
+    id: uuid(),
+    timesheetId: "t2",
+    date: "2025-11-18",
+    tasks: [
+      {
+        id: uuid(),
+        projectName: "Authentication Module",
+        workType: "Backend",
+        description: "Added JWT authentication logic",
+        hours: 8,
+      },
+      {
+        id: uuid(),
+        projectName: "Authentication Module",
+        workType: "Frontend",
+        description: "Built login & signup UI",
+        hours: 8,
+      },
+    ],
+  },
+
+  // Week 3 - INCOMPLETE (less than 40 hrs)
   {
     id: uuid(),
     timesheetId: "t3",
@@ -160,7 +184,30 @@ export const entries: TimesheetEntry[] = [
     ],
   },
 
-  // t5 intentionally left with no entries (MISSING)
+  // Week 4 - COMPLETED
+  {
+    id: uuid(),
+    timesheetId: "t4",
+    date: "2025-12-02",
+    tasks: [
+      {
+        id: uuid(),
+        projectName: "Admin Panel",
+        workType: "Feature Dev",
+        description: "Implemented role-based access control",
+        hours: 8,
+      },
+      {
+        id: uuid(),
+        projectName: "Admin Panel",
+        workType: "Testing QA",
+        description: "Performed regression testing",
+        hours: 8,
+      },
+    ],
+  },
+
+  // Week 5 - MISSING (no entries)
 ];
 
 export const projectNames: EntrySelectInput[] = [

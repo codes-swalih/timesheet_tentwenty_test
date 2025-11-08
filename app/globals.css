@@ -1,2 +1,9 @@
 @import "tailwindcss";
 
+.no-vertical-border .ant-table-cell:not(:last-child) {
+  border-right: none !important;
+}
+.no-vertical-border .ant-table-tbody > tr > td,
+.no-vertical-border .ant-table-thead > tr > th {
+  border-bottom: 1px solid #f0f0f0;
+}

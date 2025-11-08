@@ -5,6 +5,7 @@ import SelectInput from "@/components/common/SelectProjectInput";
 import { projectNames, projectTypes } from "@/lib/mockData";
 import type { Task } from "@/types/types";
 import { getSingleTask, updateTask } from "@/lib/entryServices";
+import HourStepper from "@/components/common/HoursStepper";
 
 type Props = {
   isOpen: boolean;
@@ -140,7 +141,8 @@ export default function EditTaskModal({
         </div>
       ) : (
         <div className="mt-5 flex flex-col gap-3">
-          <div className="flex flex-col gap-2">
+          <hr className=" text-gray-200" />
+          <div className="flex flex-col gap-2 w-80">
             <label className="text-xs font-medium">Select Project</label>
             <SelectInput
               items={projectNames}
@@ -152,7 +154,7 @@ export default function EditTaskModal({
             />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-80">
             <label className="text-xs font-medium">Type of Work</label>
             <SelectInput
               items={projectTypes}
@@ -178,13 +180,12 @@ export default function EditTaskModal({
 
           <div className="flex flex-col gap-2">
             <label className="text-xs font-medium">Hours</label>
-            <InputNumber
+            <HourStepper
+              value={task.hours}
+              onChange={(val) => setTask((t) => ({ ...t, hours: val }))}
               min={1}
               max={24}
-              value={task.hours}
-              onChange={(val) =>
-                setTask((t) => ({ ...t, hours: Number(val) || 1 }))
-              }
+              label="Hours *"
             />
           </div>
 

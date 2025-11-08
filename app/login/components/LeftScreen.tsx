@@ -55,7 +55,7 @@ function LeftScreen() {
           </div>
           <Checkbox>Checkbox</Checkbox>
 
-          <Button onClick={handleSubmit} size="large" type="primary" block>
+          <Button onClick={handleSubmit} size="large" style={{backgroundColor : "#1A56DB", color : "white"}} block>
             Sign in
           </Button>
         </div>

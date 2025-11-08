@@ -33,23 +33,20 @@ export default function Filters({ onChange }: Props) {
     onChange?.(payload);
   };
 
-  const handleClearAll = () => {
-    onChange?.({ dateRange: null, status: "ALL" });
-  };
-
   return (
     <div className="flex items-center gap-3">
       <RangePicker
-      size="large"
+        size="large"
         onChange={handleRangeChange}
         allowClear
         format="DD MMM YYYY"
+        placeholder={["Date Range", ""]}
       />
 
       <Select
         size="large"
-        defaultValue="ALL"
         style={{ width: 160 }}
+        placeholder="Status"
         onChange={handleStatusChange}
         options={[
           { label: "All", value: "ALL" },
@@ -59,10 +56,6 @@ export default function Filters({ onChange }: Props) {
           { label: "Pending", value: "PENDING" },
         ]}
       />
-
-      <Button size="large" type="default" onClick={handleClearAll}>
-        Clear
-      </Button>
     </div>
   );
 }

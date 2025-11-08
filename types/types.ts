@@ -48,3 +48,11 @@ export type TaskAddModelProps = {
   formattedDate: string;
   timeSheetId: string;
 };
+
+export type HourStepperProps = {
+  value: number;
+  min?: number;
+  max?: number;
+  onChange: (value: number) => void;
+  label?: string;
+};

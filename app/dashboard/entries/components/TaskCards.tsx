@@ -37,14 +37,14 @@ function TaskCards(params: TaskCardsProps) {
                   return (
                     <div
                       key={index}
-                      className=" p-2 w-full rounded-xl flex justify-between items-center border border-gray-200"
+                      className=" px-2 w-full rounded-xl flex justify-between items-center border h-12 border-gray-200"
                     >
                       <h1>{tsk.projectName}</h1>
-                      <div className=" flex items-center gap-2">
+                      <div className=" flex items-center gap-3">
                         <h1 className=" text-sm text-gray-400">
                           {tsk.hours} hrs
                         </h1>
-                        <div className="text-sm p-4 h-8 bg-blue-500/40 rounded-md text-blue-900 flex items-center justify-center ">
+                        <div className="text-sm px-2  bg-blue-500/20 h-6 rounded-md text-blue-900 flex items-center justify-center ">
                           {tsk.workType}
                         </div>
                         <TaskActions

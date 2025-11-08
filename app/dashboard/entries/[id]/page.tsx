@@ -5,6 +5,7 @@ import { Timesheet, TimesheetEntry, Task } from "@/types/types";
 import { Progress, Tooltip } from "antd";
 import { singleDayFormatter, singleWeekFormatter } from "@/utils/DateFormatter";
 import TaskCards from "../components/TaskCards";
+import Rights from "@/components/common/Rights";
 
 function Page() {
   const { id } = useParams();
@@ -28,23 +29,28 @@ function Page() {
 
   return (
     <div className="p-5 md:p-10 min-h-screen bg-gray-100 flex justify-center">
-      <div className="md:w-4/5 w-full h-full bg-white rounded-2xl md:p-10 p-5">
-        <div className="w-full md:flex md:items-center justify-between">
-          <h1 className="md:w-1/2 text-2xl font-bold">This week's timesheet</h1>
-          <div className="md:w-1/3">
-            <Tooltip title={`${totalHours}/40`}>
-              <Progress percent={percentage} size="small" status="active" />
-            </Tooltip>
+      <div className=" flex flex-col gap-5 items-center md:w-4/5">
+        <div className=" w-full h-auto bg-white rounded-2xl md:p-7 p-5 drop-shadow-xl">
+          <div className="w-full md:flex md:items-center justify-between">
+            <h1 className="md:w-1/2 text-2xl font-bold">
+              This week's timesheet
+            </h1>
+            <div className="md:w-1/3">
+              <Tooltip title={`${totalHours}/40`}>
+                <Progress percent={percentage} size="small" status="active" />
+              </Tooltip>
+            </div>
           </div>
-        </div>
-        <h1>{formattedWeek}</h1>
+          <h1>{formattedWeek}</h1>
 
-        <TaskCards
-          formattedDays={formattedDays}
-          status={status ?? ""}
-          timeSheetId={id as string}
-          onEntryCreated={handleEntryCreated}
-        />
+          <TaskCards
+            formattedDays={formattedDays}
+            status={status ?? ""}
+            timeSheetId={id as string}
+            onEntryCreated={handleEntryCreated}
+          />
+        </div>
+        <Rights />
       </div>
     </div>
   );

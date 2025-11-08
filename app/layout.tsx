@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import AuthProvider from "@/components/providers/SessionProvider";
+import { ConfigProvider } from "antd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,8 +31,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
-          <Header />
-          {children}
+          <ConfigProvider
+            theme={{
+              components: {
+                Progress: {
+                  defaultColor: "#FF8A4C",
+                },
+              },
+            }}
+          >
+            <Header />
+            {children}
+          </ConfigProvider>
         </AuthProvider>
       </body>
     </html>

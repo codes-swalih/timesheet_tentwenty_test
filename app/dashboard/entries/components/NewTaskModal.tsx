@@ -6,6 +6,7 @@ import SelectInput from "@/components/common/SelectProjectInput";
 import { projectNames, projectTypes } from "@/lib/mockData";
 import type { Task, TaskAddModelProps } from "@/types/types";
 import { createEntry } from "@/lib/entryServices";
+import HourStepper from "@/components/common/HoursStepper";
 
 const emptyTask = (): Task => ({
   projectName: "",
@@ -40,7 +41,7 @@ export default function NewTaskModal({
   const handleCreate = async (e: any) => {
     e.preventDefault();
 
-    // Validation
+
     if (!timeSheetId) return message.error("Missing timesheet reference");
     if (!formattedDate) return message.error("Missing date");
     if (!task.projectName) return message.error("Please select a project");
@@ -84,7 +85,7 @@ export default function NewTaskModal({
     <>
       <div
         onClick={showModal}
-        className="bg-blue-400/20 h-12 text-blue-700 font-medium w-full rounded-xl flex justify-center items-center border border-dashed border-blue-500 cursor-pointer hover:bg-blue-400/30 transition-colors"
+        className="bg-white hover:bg-blue-400/20 h-12 text-black hover:text-blue-700 font-medium w-full rounded-xl flex justify-center items-center border border-dashed border-gray-300 hover:border-blue-500 cursor-pointer transition-colors"
       >
         <span className="pr-3">
           <PlusOutlined />
@@ -93,15 +94,17 @@ export default function NewTaskModal({
       </div>
 
       <Modal
-        title={`Add New Entry (${formattedDate ?? "no date"})`}
+        title={`Add New Entry`}
         open={isModalOpen}
         onCancel={closeModal}
         footer={null}
+        style={{ padding: 0 }}
         destroyOnClose
       >
-        <div className="mt-5 flex flex-col gap-3">
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-medium">Select Project</label>
+        <div className="mt-5 flex flex-col gap-3 ">
+          <hr className=" text-gray-200" />
+          <div className="flex flex-col gap-2 w-80">
+            <label className="text-xs font-medium">Select Project *</label>
             <SelectInput
               items={projectNames}
               placeholder="Select Project"
@@ -111,8 +114,8 @@ export default function NewTaskModal({
             />
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-medium">Type of Work</label>
+          <div className="flex flex-col gap-2 w-80">
+            <label className="text-xs font-medium">Type of Work *</label>
             <SelectInput
               items={projectTypes}
               placeholder="Select Project Type"
@@ -136,14 +139,15 @@ export default function NewTaskModal({
 
           <div className="flex flex-col gap-2">
             <label className="text-xs font-medium">Hours</label>
-            <InputNumber
-              min={1}
-              max={24}
-              value={task.hours}
-              onChange={(val) =>
-                setTask((t) => ({ ...t, hours: Number(val) || 1 }))
-              }
-            />
+            <div className="flex flex-col gap-2">
+              <HourStepper
+                value={task.hours}
+                onChange={(val) => setTask((t) => ({ ...t, hours: val }))}
+                min={1}
+                max={24}
+                label="Hours *"
+              />
+            </div>
           </div>
 
           <div className="w-full flex items-center gap-2 mt-4">
